@@ -1,0 +1,32 @@
+{
+  "name": "bioforms",
+  "version": "1.0.0-alpha.4",
+  "description": "Helper for web forms",
+  "keywords": [
+    "forms",
+    "web"
+  ],
+  "bugs": "https://github.com/biopack/bioforms/issues",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/biopack/bioforms.git"
+  },
+  "license": "GPL-3.0",
+  "author": "scippio",
+  "main": "./lib/main.js",
+  "types": "./types/main.d.ts",
+  "scripts": {
+      "start": "gulp",
+      "watch": "gulp watch",
+      "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.1.3",
+    "typescript": "^2.0.9",
+    "merge2": "^1.0.2"
+  }
+}
