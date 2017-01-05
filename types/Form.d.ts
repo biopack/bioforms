@@ -3,6 +3,7 @@ export declare const enum Method {
     POST = 1,
 }
 export interface FormOptions {
+    name?: string;
     method?: Method;
 }
 export declare class Form {
@@ -11,7 +12,16 @@ export declare class Form {
         POST: number;
     };
     private name;
-    constructor(name: string, options?: FormOptions);
+    private errors;
+    private method;
+    protected _widgets: any;
+    constructor(options?: FormOptions);
+    init(): void;
+    readonly widgets: any;
     handleData(data: Object): void;
     isSubmittedAndValid(): boolean;
+    getName(): string;
+    getMethod(): string | void;
+    renderStart(options?: any): string;
+    renderEnd(): string;
 }
