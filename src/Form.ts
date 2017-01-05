@@ -29,6 +29,13 @@ export class Form {
         }
 
         this.init()
+
+        Object.keys(this.widgets).forEach((key,index,arr) => {
+            this.widgets[key].setName(key)
+            // console.log("==================================================")
+            // console.log(key)
+            // console.log("==================================================")
+        })
     }
 
     init(): void {

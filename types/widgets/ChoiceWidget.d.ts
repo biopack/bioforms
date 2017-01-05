@@ -1,3 +1,4 @@
-import { Widget } from "./Widget";
-export declare class ChoiceWidget extends Widget {
+import { Widget, IWidget } from "./Widget";
+export declare class ChoiceWidget extends Widget implements IWidget {
+    render(options?: any): string;
 }

@@ -6,7 +6,14 @@ export class TextWidget extends Widget implements IWidget {
 
     }
 
-    render(): string {
-        return `<input name="" type="text"></input>`
+    render(options?: any): string {
+        let attributes = ""
+        if(options && options.attr){
+            Object.keys(options.attr).forEach((attributeName,index,arr) => {
+                attributes += ` ${attributeName}="${options.attr[attributeName]}"`
+            })
+        }
+        if(this.options.placeholder) attributes += ` placeholder="${this.options.placeholder}"`
+        return `<input name="${this.name}" type="text"${attributes}></input>`
     }
 }
