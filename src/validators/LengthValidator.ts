@@ -1,8 +1,12 @@
 
 import { IValidator, Validator } from "./Validator"
-import { ValidatorError } from "./ValidatorError"
 
-export class EmailValidator extends Validator implements IValidator {
+interface validatorOptons {
+    min?: number
+    max?: number
+}
+
+export class LengthValidator extends Validator implements IValidator {
 
     constructor(){
         super()

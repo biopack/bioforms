@@ -1,3 +1,6 @@
+
+import { Widget } from "./widgets/Widget"
+
 export const enum Method {
     GET,
     POST
@@ -18,7 +21,7 @@ export class Form {
     private name: string
     private errors: Array<string>
     private method: Method = Method.GET
-    protected _widgets: any = {}
+    protected _widgets: {[key: string]: Widget} = {}
 
     constructor(options?: FormOptions){
         this.name = this.constructor.name
@@ -46,15 +49,23 @@ export class Form {
         // this._widgets
     // }
 
-    get widgets(): any {
+    get widgets(): {[key: string]: Widget} {
         return this._widgets
     }
 
     handleData(data: Object): void {
-
+        console.log("=====================================FORM DATA===========================================")
+        console.log(data)
+        console.log("================================================================================")
     }
 
-    isSubmittedAndValid(): boolean {
+    isValid(): boolean {
+        Object.keys(this.widgets).forEach((widgetName,index,arr) => {
+            let widget = this.widgets[widgetName]
+            widget.validators.forEach((validator,index,arr) => {
+
+            })
+        })
         return false
     }
 

@@ -10,6 +10,7 @@ export class EmailWidget extends Widget implements IWidget {
             })
         }
         if(this.options.placeholder) attributes += ` placeholder="${this.options.placeholder}"`
-        return `<input name="${this.name}" type="email"${attributes}></input>`
+        if(this.options.required) attributes += ` required="required"`
+        return `<input name="${this.name}" type="email"${attributes} value="${(this.value === undefined ? "" : this.value)}"></input>`
     }
 }

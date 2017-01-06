@@ -1,8 +1,7 @@
 
 import { IValidator, Validator } from "./Validator"
-import { ValidatorError } from "./ValidatorError"
 
-export class EmailValidator extends Validator implements IValidator {
+export class RangeValidator extends Validator implements IValidator {
 
     constructor(){
         super()

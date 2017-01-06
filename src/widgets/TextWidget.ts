@@ -2,10 +2,6 @@
 import { Widget, IWidget } from "./Widget"
 
 export class TextWidget extends Widget implements IWidget {
-    init(){
-
-    }
-
     render(options?: any): string {
         let attributes = ""
         if(options && options.attr){
@@ -14,6 +10,7 @@ export class TextWidget extends Widget implements IWidget {
             })
         }
         if(this.options.placeholder) attributes += ` placeholder="${this.options.placeholder}"`
-        return `<input name="${this.name}" type="text"${attributes}></input>`
+        if(this.options.required) attributes += ` required="required"`
+        return `<input name="${this.name}" type="text"${attributes} value="${(this.value === undefined ? "" : this.value)}"></input>`
     }
 }

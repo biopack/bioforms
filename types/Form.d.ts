@@ -1,3 +1,4 @@
+import { Widget } from "./widgets/Widget";
 export declare const enum Method {
     GET = 0,
     POST = 1,
@@ -14,12 +15,16 @@ export declare class Form {
     private name;
     private errors;
     private method;
-    protected _widgets: any;
+    protected _widgets: {
+        [key: string]: Widget;
+    };
     constructor(options?: FormOptions);
     init(): void;
-    readonly widgets: any;
+    readonly widgets: {
+        [key: string]: Widget;
+    };
     handleData(data: Object): void;
-    isSubmittedAndValid(): boolean;
+    isValid(): boolean;
     getName(): string;
     getMethod(): string | void;
     renderStart(options?: any): string;

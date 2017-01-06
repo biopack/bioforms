@@ -10,6 +10,7 @@ export class PasswordWidget extends Widget implements IWidget {
             })
         }
         if(this.options.placeholder) attributes += ` placeholder="${this.options.placeholder}"`
+        if(this.options.required) attributes += ` required="required"`
         return `<input name="${this.name}" type="password"${attributes}></input>`
     }
 }

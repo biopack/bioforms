@@ -1,7 +1,10 @@
 export { Validator } from "./validators/Validator";
 export { ValidatorError } from "./validators/ValidatorError";
-export { RequiredValidator } from "./validators/RequiredValidator";
+export { NotBlankValidator } from "./validators/NotBlankValidator";
 export { EmailValidator } from "./validators/EmailValidator";
+export { LengthValidator } from "./validators/LengthValidator";
+export { RangeValidator } from "./validators/RangeValidator";
+export { ChoiceValidator } from "./validators/ChoiceValidator";
 export { Widget } from "./widgets/Widget";
 export { TextWidget } from "./widgets/TextWidget";
 export { EmailWidget } from "./widgets/EmailWidget";
