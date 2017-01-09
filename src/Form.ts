@@ -56,10 +56,8 @@ export class Form {
         }
 
         Object.keys(this.widgets).forEach((widgetName,index,arr) => {
-            console.log(`add ${widgetName} : value: ${data[widgetName]}`)
             let widget = this.widgets[widgetName]
             widget.setValue(data[widgetName])
-            console.log(`SETED: ${widget.getValue()}`)
         })
     }
 
