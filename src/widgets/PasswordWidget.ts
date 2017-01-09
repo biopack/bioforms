@@ -1,7 +1,8 @@
 
 import { Widget, IWidget } from "./Widget"
 
-export class PasswordWidget extends Widget implements IWidget {
+export class PasswordWidget extends Widget<string> implements IWidget {
+
     render(options?: any): string {
         let attributes = ""
         if(options && options.attr){
@@ -12,5 +13,9 @@ export class PasswordWidget extends Widget implements IWidget {
         if(this.options.placeholder) attributes += ` placeholder="${this.options.placeholder}"`
         if(this.options.required) attributes += ` required="required"`
         return `<input name="${this.name}" type="password"${attributes}></input>`
+    }
+
+    setValue(value: string): void {
+        this.value = value
     }
 }

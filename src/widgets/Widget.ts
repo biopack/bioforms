@@ -1,10 +1,12 @@
 
 import { Validator } from "../validators/Validator"
+import { ValidatorError } from "../validators/ValidatorError"
+import { Form } from "../Form"
 
 export interface widgetOptions {
     label?: string
     placeholder?: string
-    validators?: Array<Validator>
+    validators?: Array<Validator<any>>
     required?: boolean
 }
 
@@ -15,11 +17,14 @@ export interface IWidget {
     // setDefault<T>(value: T): void
 }
 
-export class Widget {
+export abstract class Widget<T> {
 
     protected name: string = ""
     protected options: widgetOptions
-    protected value: any
+    protected value: T
+    protected default: T
+    protected form: Form
+    protected errors: Array<ValidatorError> = []
 
     constructor(options?: widgetOptions) {
         this.options = options || {}
@@ -27,12 +32,16 @@ export class Widget {
         if(this.options.required === undefined) this.options.required = true
     }
 
-    get validators(): Array<Validator> {
+    get validators(): Array<Validator<any>> {
         return this.options.validators || []
     }
 
     setName(name: string): void {
         this.name = name
+    }
+
+    setForm(form: Form): void {
+        this.form = form
     }
 
     renderLabel(options?: any): string {
@@ -46,17 +55,40 @@ export class Widget {
         return `<label${attributes}>${label}</label>`
     }
 
-    setValue<T>(data: T): void {
-        this.value = data
+
+    setDefault(value: T): void {
+
     }
 
-    getValue<T>(): T {
+    setValue(value: T): void {
+
+    }
+
+    getValue(): T {
         return this.value
     }
 
-    setDefault<T>(data: T): void {
-        this.value = data
+    addError(error: ValidatorError): void {
+        this.errors.push(error)
     }
+
+    getErrors(): Array<ValidatorError> {
+        return this.errors
+    }
+
+    /*
+    setValue(value: number): void
+    setValue(value: string): void
+    setValue(value: any): void {  }
+
+    getValue(): string
+    getValue(): Array<string>
+    getValue(): number
+    getValue(): any { }
+
+    setDefault(data: any): void { }
+    */
+
     //
     // render(){ return "" }
     // setValue<String | array>(value: string | Array<string>): void {  }

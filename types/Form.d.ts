@@ -1,4 +1,5 @@
 import { Widget } from "./widgets/Widget";
+import { ValidatorError } from "./validators/ValidatorError";
 export declare const enum Method {
     GET = 0,
     POST = 1,
@@ -6,27 +7,31 @@ export declare const enum Method {
 export interface FormOptions {
     name?: string;
     method?: Method;
+    debug?: boolean;
+    translate?: any;
 }
 export declare class Form {
     static Method: {
         GET: number;
         POST: number;
     };
-    private name;
+    private options;
     private errors;
-    private method;
     protected _widgets: {
-        [key: string]: Widget;
+        [key: string]: Widget<any>;
     };
     constructor(options?: FormOptions);
     init(): void;
     readonly widgets: {
-        [key: string]: Widget;
+        [key: string]: Widget<any>;
     };
-    handleData(data: Object): void;
+    handleData(data: any): void;
     isValid(): boolean;
     getName(): string;
-    getMethod(): string | void;
+    getMethod(): string;
+    getErrors(): {
+        [key: string]: Array<ValidatorError>;
+    };
     renderStart(options?: any): string;
     renderEnd(): string;
 }

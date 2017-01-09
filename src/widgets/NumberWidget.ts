@@ -1,7 +1,8 @@
 
 import { Widget, IWidget } from "./Widget"
 
-export class NumberWidget extends Widget implements IWidget {
+export class NumberWidget extends Widget<number> implements IWidget {
+
     render(options?: any): string {
         let attributes = ""
         if(options && options.attr){
@@ -12,5 +13,9 @@ export class NumberWidget extends Widget implements IWidget {
         if(this.options.placeholder) attributes += ` placeholder="${this.options.placeholder}"`
         if(this.options.required) attributes += ` required="required"`
         return `<input name="${this.name}" type="number"${attributes} value="${(this.value === undefined ? "" : this.value)}"></input>`
+    }
+
+    setValue(value: number): void {
+        this.value = value
     }
 }

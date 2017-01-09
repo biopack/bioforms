@@ -1,9 +1,10 @@
 
 export interface IValidator {
-    validate<T,U>(data: U): T
+    // validate(data: any): T
 }
 
-export class Validator {
-
-
+export class Validator<T> {
+    validate(data: any): T {
+        return <T>data
+    }
 }

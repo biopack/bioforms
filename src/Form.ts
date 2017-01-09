@@ -1,5 +1,6 @@
 
 import { Widget } from "./widgets/Widget"
+import { ValidatorError } from "./validators/ValidatorError"
 
 export const enum Method {
     GET,
@@ -9,6 +10,8 @@ export const enum Method {
 export interface FormOptions {
     name?: string
     method?: Method
+    debug?: boolean
+    translate?: any
 }
 
 export class Form {
@@ -18,26 +21,21 @@ export class Form {
         POST: 1
     }
 
-    private name: string
-    private errors: Array<string>
-    private method: Method = Method.GET
-    protected _widgets: {[key: string]: Widget} = {}
+    private options: FormOptions
+    private errors: {[key: string]: Array<ValidatorError>}
+    protected _widgets: {[key: string]: Widget<any>} = {}
 
     constructor(options?: FormOptions){
-        this.name = this.constructor.name
-
-        if(options !== undefined){
-            if(options.name) this.name = options.name
-            if(options.method) this.method = options.method
-        }
+        this.options = options || {} as FormOptions
+        if(this.options.name === undefined) this.options.name = this.constructor.name
+        if(this.options.method === undefined) this.options.method = Method.GET
+        if(this.options.debug === undefined) this.options.debug = false
 
         this.init()
 
         Object.keys(this.widgets).forEach((key,index,arr) => {
             this.widgets[key].setName(key)
-            // console.log("==================================================")
-            // console.log(key)
-            // console.log("==================================================")
+            this.widgets[key].setForm(this)
         })
     }
 
@@ -45,38 +43,61 @@ export class Form {
 
     }
 
-    // protected set widgets(widget: any){
-        // this._widgets
-    // }
-
-    get widgets(): {[key: string]: Widget} {
+    get widgets(): {[key: string]: Widget<any>} {
         return this._widgets
     }
 
-    handleData(data: Object): void {
-        console.log("=====================================FORM DATA===========================================")
-        console.log(data)
-        console.log("================================================================================")
+    handleData(data: any): void {
+        if(this.options.debug){
+            console.log(`===================================== FORM DATA ===========================================`)
+            console.log(this.options.name)
+            console.log(data)
+            console.log(`===========================================================================================`)
+        }
+
+        Object.keys(this.widgets).forEach((widgetName,index,arr) => {
+            console.log(`add ${widgetName} : value: ${data[widgetName]}`)
+            let widget = this.widgets[widgetName]
+            widget.setValue(data[widgetName])
+            console.log(`SETED: ${widget.getValue()}`)
+        })
     }
 
     isValid(): boolean {
+        let valid = true
+        this.errors = {}
         Object.keys(this.widgets).forEach((widgetName,index,arr) => {
             let widget = this.widgets[widgetName]
             widget.validators.forEach((validator,index,arr) => {
-
+                try {
+                    widget.setValue(validator.validate(widget.getValue()))
+                } catch(err){
+                    valid = false
+                    if(err instanceof ValidatorError){
+                        widget.addError(err)
+                        this.errors[widgetName] = widget.getErrors()
+                    }
+                }
             })
         })
-        return false
+        return valid
     }
 
     getName(): string {
-        return this.name
+        if(this.options.name !== undefined) return this.options.name
+        return ""
     }
 
-    getMethod(): string | void {
-        if(this.method === Method.GET) return 'get'
-        if(this.method === Method.POST) return 'post'
+    getMethod(): string {
+        if(this.options.method === Method.POST) return 'post'
+        return 'get'
     }
+
+    getErrors(): {[key: string]: Array<ValidatorError>} {
+        return this.errors
+    }
+
+    /* render methods */
 
     renderStart(options?: any): string {
         options = options || {}

@@ -1,5 +1,5 @@
 export interface IValidator {
-    validate<T, U>(data: U): T;
 }
-export declare class Validator {
+export declare class Validator<T> {
+    validate(data: any): T;
 }
