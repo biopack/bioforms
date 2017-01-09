@@ -21,13 +21,13 @@ export class ChoiceWidget extends Widget<string | Array<string>> implements IWid
     }
 
     render(options?: any): string {
+        options = options || {}
+        let attrs = Object.assign({},this.options.attr || {},options.attr || {})
+
         let attributes = ""
-        if(options && options.attr){
-            Object.keys(options.attr).forEach((attributeName,index,arr) => {
-                attributes += ` ${attributeName}="${options.attr[attributeName]}"`
-            })
-        }
-        if(this.options.placeholder) attributes += ` placeholder="${this.options.placeholder}"`
+        Object.keys(attrs).forEach((attributeName,index,arr) => {
+            attributes += ` ${attributeName}="${options.attr[attributeName]}"`
+        })
 
         let elopt = ""
         if(Lodash.isArray(this.choiceOptions.choices)){
@@ -41,6 +41,7 @@ export class ChoiceWidget extends Widget<string | Array<string>> implements IWid
             })
         }
 
+        if(this.options.placeholder) attributes += ` placeholder="${this.options.placeholder}"`
         if(this.choiceOptions.required) attributes += ` required="required"`
         if(this.choiceOptions.multiple) attributes += ` multiple="multiple"`
 

@@ -4,12 +4,14 @@ import { Widget, IWidget } from "./Widget"
 export class PasswordWidget extends Widget<string> implements IWidget {
 
     render(options?: any): string {
+        options = options || {}
+        let attrs = Object.assign({},this.options.attr || {},options.attr || {})
+
         let attributes = ""
-        if(options && options.attr){
-            Object.keys(options.attr).forEach((attributeName,index,arr) => {
-                attributes += ` ${attributeName}="${options.attr[attributeName]}"`
-            })
-        }
+        Object.keys(attrs).forEach((attributeName,index,arr) => {
+            attributes += ` ${attributeName}="${options.attr[attributeName]}"`
+        })
+
         if(this.options.placeholder) attributes += ` placeholder="${this.options.placeholder}"`
         if(this.options.required) attributes += ` required="required"`
         return `<input name="${this.name}" type="password"${attributes}></input>`

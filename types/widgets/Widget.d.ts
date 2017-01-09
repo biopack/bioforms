@@ -6,6 +6,9 @@ export interface widgetOptions {
     placeholder?: string;
     validators?: Array<Validator<any>>;
     required?: boolean;
+    attr?: {
+        [key: string]: string | number;
+    };
 }
 export interface IWidget {
     render(): string;
@@ -22,6 +25,7 @@ export declare abstract class Widget<T> {
     setName(name: string): void;
     setForm(form: Form): void;
     renderLabel(options?: any): string;
+    getLabel(): string;
     setDefault(value: T): void;
     setValue(value: T): void;
     getValue(): T;

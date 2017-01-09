@@ -8,13 +8,11 @@ export interface widgetOptions {
     placeholder?: string
     validators?: Array<Validator<any>>
     required?: boolean
+    attr?: {[key: string]: string | number}
 }
 
 export interface IWidget {
     render(): string
-    // setValue<T>(value: T): void
-    // getValue<T>(): T
-    // setDefault<T>(value: T): void
 }
 
 export abstract class Widget<T> {
@@ -29,6 +27,7 @@ export abstract class Widget<T> {
     constructor(options?: widgetOptions) {
         this.options = options || {}
 
+        if(this.options.label === undefined) this.options.label = ""
         if(this.options.required === undefined) this.options.required = true
     }
 
@@ -45,23 +44,23 @@ export abstract class Widget<T> {
     }
 
     renderLabel(options?: any): string {
-        let label = this.options.label || ""
         let attributes = ""
         if(options && options.attr){
             Object.keys(options.attr).forEach((attributeName,index,arr) => {
                 attributes += ` ${attributeName}="${options.attr[attributeName]}"`
             })
         }
-        return `<label${attributes}>${label}</label>`
+        return `<label${attributes}>${this.options.label!}</label>`
     }
 
+    getLabel(): string {
+        return this.options.label!
+    }
 
     setDefault(value: T): void {
-
     }
 
     setValue(value: T): void {
-
     }
 
     getValue(): T {
@@ -75,24 +74,4 @@ export abstract class Widget<T> {
     getErrors(): Array<ValidatorError> {
         return this.errors
     }
-
-    /*
-    setValue(value: number): void
-    setValue(value: string): void
-    setValue(value: any): void {  }
-
-    getValue(): string
-    getValue(): Array<string>
-    getValue(): number
-    getValue(): any { }
-
-    setDefault(data: any): void { }
-    */
-
-    //
-    // render(){ return "" }
-    // setValue<String | array>(value: string | Array<string>): void {  }
-    // setValue<array>(data: Array<string>): void { }
-    // setDefault<String>(value: string){  }
-    // getValue<String>(): string { return "" }
 }
