@@ -95,6 +95,14 @@ export class Form {
         return this.errors
     }
 
+    getData(): {[key: string]: any} {
+        let data: {[key: string]: any} = {}
+        Object.keys(this.widgets).forEach((widgetName,index,arr) => {
+            data[widgetName] = <any>this.widgets[widgetName].getValue()
+        })
+        return data
+    }
+
     /* render methods */
 
     renderStart(options?: any): string {

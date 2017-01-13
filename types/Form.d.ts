@@ -32,6 +32,9 @@ export declare class Form {
     getErrors(): {
         [key: string]: Array<ValidatorError>;
     };
+    getData(): {
+        [key: string]: any;
+    };
     renderStart(options?: any): string;
     renderEnd(): string;
 }
