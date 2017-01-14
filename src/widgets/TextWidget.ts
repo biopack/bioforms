@@ -9,7 +9,7 @@ export class TextWidget extends Widget<string> implements IWidget {
 
         let attributes = ""
         Object.keys(attrs).forEach((attributeName,index,arr) => {
-            attributes += ` ${attributeName}="${options.attr[attributeName]}"`
+            attributes += ` ${attributeName}="${attrs[attributeName]}"`
         })
 
         if(this.options.placeholder) attributes += ` placeholder="${this.options.placeholder}"`

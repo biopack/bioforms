@@ -26,7 +26,7 @@ export class ChoiceWidget extends Widget<string | Array<string>> implements IWid
 
         let attributes = ""
         Object.keys(attrs).forEach((attributeName,index,arr) => {
-            attributes += ` ${attributeName}="${options.attr[attributeName]}"`
+            attributes += ` ${attributeName}="${attrs[attributeName]}"`
         })
 
         let elopt = ""
