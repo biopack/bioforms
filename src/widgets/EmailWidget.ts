@@ -1,7 +1,13 @@
 
-import { Widget, IWidget } from "./Widget"
+import { Widget, IWidget, widgetOptions } from "./Widget"
 
 export class EmailWidget extends Widget<string> implements IWidget {
+
+    constructor(options: widgetOptions){
+        super(options)
+
+        this.default = ""
+    }
 
     render(options?: any): string {
         options = options || {}
@@ -14,7 +20,7 @@ export class EmailWidget extends Widget<string> implements IWidget {
 
         if(this.options.placeholder) attributes += ` placeholder="${this.options.placeholder}"`
         if(this.options.required) attributes += ` required="required"`
-        return `<input name="${this.name}" type="email"${attributes} value="${(this.value === undefined ? "" : this.value)}"></input>`
+        return `<input name="${this.name}" type="email"${attributes} value="${(this.value === undefined ? this.default : this.value)}"></input>`
     }
 
     setValue(value: string): void {

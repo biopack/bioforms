@@ -58,9 +58,11 @@ export abstract class Widget<T> {
     }
 
     setDefault(value: T): void {
+        this.default = value
     }
 
     setValue(value: T): void {
+        this.value = value
     }
 
     getValue(): T {

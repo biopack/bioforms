@@ -1,7 +1,11 @@
 
-import { Widget, IWidget } from "./Widget"
+import { Widget, IWidget, widgetOptions } from "./Widget"
 
 export class PasswordWidget extends Widget<string> implements IWidget {
+
+    constructor(options: widgetOptions){
+        super(options)
+    }
 
     render(options?: any): string {
         options = options || {}

@@ -37,7 +37,8 @@ export class ChoiceWidget extends Widget<string | Array<string>> implements IWid
         } else {
             Object.keys(this.choiceOptions.choices).forEach((opt: string, index: number, arr: Array<string>) => {
                 let ch = <any>this.choiceOptions.choices
-                elopt += `<option value="${opt}"${(opt === this.value ? ' selected="selected"' : '')}>${ch[opt]}</option>`
+                let selected = this.value || this.default
+                elopt += `<option value="${opt}"${(opt === selected ? ' selected="selected"' : '')}>${ch[opt]}</option>`
             })
         }
 
