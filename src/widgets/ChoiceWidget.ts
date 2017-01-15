@@ -32,7 +32,8 @@ export class ChoiceWidget extends Widget<string | Array<string>> implements IWid
         let elopt = ""
         if(Lodash.isArray(this.choiceOptions.choices)){
             this.choiceOptions.choices.forEach((opt: string, index: number, arr: Array<string>) => {
-                elopt += `<option value="${opt}"${(opt === this.value ? ' selected="selected"' : '')}>${opt}</option>`
+                let selected = this.value || this.default
+                elopt += `<option value="${opt}"${(opt === selected ? ' selected="selected"' : '')}>${opt}</option>`
             })
         } else {
             Object.keys(this.choiceOptions.choices).forEach((opt: string, index: number, arr: Array<string>) => {
