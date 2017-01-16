@@ -43,7 +43,7 @@ export class ChoiceWidget extends Widget<string | Array<string>> implements IWid
             })
         }
 
-        if(this.options.placeholder) attributes += ` placeholder="${this.options.placeholder}"`
+        if(this.options.placeholder) attributes += ` placeholder="${this.form.trans(this.options.placeholder)}"`
         if(this.choiceOptions.required) attributes += ` required="required"`
         if(this.choiceOptions.multiple) attributes += ` multiple="multiple"`
 

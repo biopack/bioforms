@@ -4,11 +4,17 @@ export declare const enum Method {
     GET = 0,
     POST = 1,
 }
+export interface Translate {
+    object: any;
+    method: string;
+}
 export interface FormOptions {
     name?: string;
     method?: Method;
     debug?: boolean;
-    translate?: any;
+    translate?: {
+        (text: string, subs?: any): string;
+    } | Translate;
 }
 export declare class Form {
     static Method: {
@@ -21,6 +27,8 @@ export declare class Form {
         [key: string]: Widget<any>;
     };
     constructor(options?: FormOptions);
+    trans(text: string, subs?: any): string;
+    private translate(text, subs?);
     init(): void;
     readonly widgets: {
         [key: string]: Widget<any>;

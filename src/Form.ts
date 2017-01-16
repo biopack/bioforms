@@ -1,4 +1,5 @@
-
+import * as Sprintf from "sprintf-js"
+//
 import { Widget } from "./widgets/Widget"
 import { ValidatorError } from "./validators/ValidatorError"
 
@@ -7,11 +8,16 @@ export const enum Method {
     POST
 }
 
+export interface Translate {
+    object: any
+    method: string
+}
+
 export interface FormOptions {
     name?: string
     method?: Method
     debug?: boolean
-    translate?: any
+    translate?: {(text: string, subs?: any): string} | Translate
 }
 
 export class Form {
@@ -30,6 +36,7 @@ export class Form {
         if(this.options.name === undefined) this.options.name = this.constructor.name
         if(this.options.method === undefined) this.options.method = Method.GET
         if(this.options.debug === undefined) this.options.debug = false
+        if(this.options.translate === undefined) this.options.translate = this.translate
 
         this.init()
 
@@ -37,6 +44,19 @@ export class Form {
             this.widgets[key].setName(key)
             this.widgets[key].setForm(this)
         })
+    }
+
+    trans(text: string, subs?: any): string {
+        if(this.options.translate !== undefined){
+            if(typeof this.options.translate === "object"){
+                return this.options.translate.object[this.options.translate.method](text,subs)
+            }
+            return this.options.translate(text,subs)
+        } return text
+    }
+
+    private translate(text: string, subs?: any): string {
+        return Sprintf.sprintf(text,subs)
     }
 
     init(): void {

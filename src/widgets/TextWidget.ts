@@ -18,7 +18,7 @@ export class TextWidget extends Widget<string> implements IWidget {
             attributes += ` ${attributeName}="${attrs[attributeName]}"`
         })
 
-        if(this.options.placeholder) attributes += ` placeholder="${this.options.placeholder}"`
+        if(this.options.placeholder) attributes += ` placeholder="${this.form.trans(this.options.placeholder)}"`
         if(this.options.required) attributes += ` required="required"`
         return `<input name="${this.name}" type="text"${attributes} value="${(this.value === undefined ? this.default : this.value)}"></input>`
     }

@@ -20,7 +20,7 @@ export class EmailValidator extends Validator<string> implements IValidator {
 
     validate(data: any):string {
         data = trim(data)
-        if(!isEmail(data)) throw new ValidatorError(1,this.options.message!)
+        if(!isEmail(data)) throw new ValidatorError(1,this.form.trans(this.options.message!))
         return <string>data
     }
 }

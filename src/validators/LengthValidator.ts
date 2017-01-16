@@ -31,7 +31,7 @@ export class LengthValidator extends Validator<string> implements IValidator {
         data = trim(data)
         if(data.length < this.min) throw new ValidatorError(1,this.minMessage)
         if(data.length > this.max) throw new ValidatorError(2,this.maxMessage)
-        if(this.min === this.max && this.min !== data.length) throw new ValidatorError(3,this.exactlyMessage)
+        if(this.min === this.max && this.min !== data.length) throw new ValidatorError(3,this.form.trans(this.exactlyMessage))
         return <string>data
     }
 

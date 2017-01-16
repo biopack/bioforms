@@ -35,13 +35,13 @@ export class ChoiceValidator extends Validator<Array<string> | string> implement
         if(!Array.isArray(data)) data = [data]
         if(!Array.isArray(this.options.choices)) this.options.choices = Object.keys(this.options.choices)
 
-        if(data.length < this.options.min) throw new ValidatorError(3,this.options.minMessage!)
-         if(data.length > this.options.max) throw new ValidatorError(4,this.options.maxMessage!)
+        if(data.length < this.options.min) throw new ValidatorError(3,this.form.trans(this.options.minMessage!))
+         if(data.length > this.options.max) throw new ValidatorError(4,this.form.trans(this.options.maxMessage!))
 
         data.forEach((d: string, i: number, a: Array<string>) => {
             if(!isIn(d,<Array<string>>this.options.choices)){
-                if(this.options.multiple) throw new ValidatorError(2,this.options.multipleMessage!)
-                else throw new ValidatorError(1,this.options.message!)
+                if(this.options.multiple) throw new ValidatorError(2,this.form.trans(this.options.multipleMessage!))
+                else throw new ValidatorError(1,this.form.trans(this.options.message!))
             }
         })
 

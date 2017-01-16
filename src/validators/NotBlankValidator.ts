@@ -18,7 +18,7 @@ export class NotBlankValidator extends Validator<string | number | Array<string>
     }
 
     validate(data: any): string | number | Array<string> {
-        if(data === "" || data === null || data === undefined || (Array.isArray(data) && data.length === 0)) throw new ValidatorError(1,this.message)
+        if(data === "" || data === null || data === undefined || (Array.isArray(data) && data.length === 0)) throw new ValidatorError(1,this.form.trans(this.message))
         return trim(data)
     }
 }

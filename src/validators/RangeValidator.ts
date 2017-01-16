@@ -31,9 +31,9 @@ export class RangeValidator extends Validator<number> implements IValidator {
 
     validate(data: any): number {
         data = trim(data.replace(/[^0-9]/gi,''))
-        if(!isInt(data)) throw new ValidatorError(1,this.invalidMessage)
-        if(data < this.min) throw new ValidatorError(2,this.minMessage)
-        if(data > this.max) throw new ValidatorError(3,this.maxMessage)
+        if(!isInt(data)) throw new ValidatorError(1,this.form.trans(this.invalidMessage))
+        if(data < this.min) throw new ValidatorError(2,this.form.trans(this.minMessage))
+        if(data > this.max) throw new ValidatorError(3,this.form.trans(this.maxMessage))
         return <number>data
     }
 

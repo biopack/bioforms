@@ -41,6 +41,9 @@ export abstract class Widget<T> {
 
     setForm(form: Form): void {
         this.form = form
+        this.validators.forEach(validator => {
+            validator.setForm(form)
+        })
     }
 
     renderLabel(options?: any): string {
@@ -50,7 +53,7 @@ export abstract class Widget<T> {
                 attributes += ` ${attributeName}="${options.attr[attributeName]}"`
             })
         }
-        return `<label${attributes}>${this.options.label!}</label>`
+        return `<label${attributes}>${this.form.trans(this.options.label!)}</label>`
     }
 
     getLabel(): string {
